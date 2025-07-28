@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
 import "../styles/Dashboard.css";
 
 // PUBLIC_INTERFACE
 function Dashboard() {
-  const { token } = useAuth();
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState("");
 
@@ -13,9 +11,7 @@ function Dashboard() {
     async function fetchJobs() {
       setError("");
       try {
-        const resp = await fetch("http://localhost:3001/api/dashboard/jobs", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const resp = await fetch("http://localhost:3001/api/dashboard/jobs");
         if (!resp.ok) throw new Error("Failed to load dashboard jobs");
         const data = await resp.json();
         setJobs(data.jobs || []);
@@ -24,7 +20,7 @@ function Dashboard() {
       }
     }
     fetchJobs();
-  }, [token]);
+  }, []);
 
   return (
     <div className="dashboard-main">

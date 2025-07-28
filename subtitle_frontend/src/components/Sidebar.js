@@ -1,23 +1,14 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
-import { useAuth } from "../auth/AuthContext";
 
 /**
  * Sidebar component for main app navigation.
  *
- * Shows navigation links to Dashboard, Upload, and a Logout button.
+ * Shows navigation links to Dashboard and Upload.
  */
 // PUBLIC_INTERFACE
 function Sidebar() {
-  const { logout, user } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
-
   return (
     <aside className="sidebar open">
       <div className="sidebar-header">
@@ -35,10 +26,6 @@ function Sidebar() {
           </NavLink>
         </li>
       </ul>
-      <button className="sidebar-btn" onClick={handleLogout}>Logout</button>
-      <div style={{ padding: "10px 18px 0", fontSize: "0.98em", color: "#888" }}>
-        {user ? `Logged in as: ${user}` : ""}
-      </div>
     </aside>
   );
 }

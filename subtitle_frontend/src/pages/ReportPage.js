@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
 import "../styles/Results.css";
 
 // PUBLIC_INTERFACE
 function ReportPage() {
   const { syncId } = useParams();
-  const { token } = useAuth();
   const [report, setReport] = useState(null);
   const [error, setError] = useState("");
   useEffect(() => {
     async function fetchReport() {
       setError("");
       try {
-        const resp = await fetch(`http://localhost:3001/api/report/${syncId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const resp = await fetch(`http://localhost:3001/api/report/${syncId}`);
         if (!resp.ok) throw new Error("Failed to load report");
         setReport(await resp.json());
       } catch (e) { setError(e.message);}
     }
     fetchReport();
-  }, [token, syncId]);
+  }, [syncId]);
 
   function highlightSegments(segments) {
     return Array.isArray(segments) && segments.length > 0

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/Upload.css";
 
@@ -15,7 +14,6 @@ const LANG_OPTS = [
 ];
 
 function Upload() {
-  const { token } = useAuth();
   const [mediaFile, setMediaFile] = useState(null);
   const [subtitleFile, setSubtitleFile] = useState(null);
   const [language, setLanguage] = useState("en");
@@ -34,7 +32,6 @@ function Upload() {
     form.append("file", mediaFile);
     const resp = await fetch("http://localhost:3001/api/upload/media", {
       method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
       body: form,
     });
     if (!resp.ok) throw new Error("Failed to upload media");
@@ -50,7 +47,6 @@ function Upload() {
     form.append("language", language);
     const resp = await fetch("http://localhost:3001/api/upload/subtitle", {
       method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
       body: form,
     });
     if (!resp.ok) throw new Error("Failed to upload subtitle");
@@ -64,7 +60,6 @@ function Upload() {
     const resp = await fetch("http://localhost:3001/api/sync/align", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: params.toString(),

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
 import "../styles/Results.css";
 
 // PUBLIC_INTERFACE
 function Results() {
   const { syncId } = useParams();
-  const { token } = useAuth();
   const [data, setData] = useState(null);
   const [report, setReport] = useState(null);
   const [error, setError] = useState("");
@@ -15,9 +13,7 @@ function Results() {
     async function fetchJob() {
       setError(""); setData(null);
       try {
-        const resp = await fetch(`http://localhost:3001/api/dashboard/jobs`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const resp = await fetch(`http://localhost:3001/api/dashboard/jobs`);
         if (!resp.ok) throw new Error("Failed to load job");
         const jobs = (await resp.json()).jobs;
         const thisJob = jobs.find(j => j.sync_id === syncId);
@@ -26,15 +22,13 @@ function Results() {
     }
     async function fetchReport() {
       try {
-        const resp = await fetch(`http://localhost:3001/api/report/${syncId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const resp = await fetch(`http://localhost:3001/api/report/${syncId}`);
         if (!resp.ok) throw new Error("Failed to load report");
         setReport(await resp.json());
       } catch (e) { setError(e.message);}
     }
     fetchJob(); fetchReport();
-  }, [token, syncId]);
+  }, [syncId]);
 
   // Download report and subtitle handlers
   const downloadReport = () => {
@@ -47,9 +41,7 @@ function Results() {
   };
   const downloadSubtitle = async () => {
     try {
-      const resp = await fetch(`http://localhost:3001/api/subtitle/aligned/${syncId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const resp = await fetch(`http://localhost:3001/api/subtitle/aligned/${syncId}`);
       const blob = await resp.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
