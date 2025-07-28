@@ -1,0 +1,62 @@
+.results-main {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 50px 20px 20px 15px;
+}
+.results-main h2 {
+  color: var(--primary, #1976D2);
+  margin-bottom: 25px;
+}
+.results-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 28px;
+}
+.result-card {
+  background: var(--bg-secondary, #f8f9fa);
+  border-radius: 11px;
+  border: 2px solid #ddd;
+  box-shadow: 0 2px 14px rgba(27,39,79,0.053);
+  padding: 20px 14px;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+}
+.result-card.passed { border-left: 7px solid #43a047; }
+.result-card.failed { border-left: 7px solid #e53935; }
+.result-type {
+  font-size: 1.12em;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--secondary, #424242);
+  text-transform: capitalize;
+}
+.result-status { 
+  font-weight: 500;
+  font-size: 1.03em;
+  margin-bottom: 9px;
+}
+.result-status.good { color: #399b3d; }
+.result-status.bad { color: #e53935;}
+.result-detail {
+  margin-bottom: 7px;
+  font-size: 0.99em;
+  color: #444;
+}
+.highlight-list {
+  margin: 7px 0 0 5px;
+  font-size: 0.98em;
+  color: #FFC107;
+  list-style-type: disc;
+}
+.error-panel {
+  color: #e53935;
+}

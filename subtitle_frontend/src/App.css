@@ -21,6 +21,23 @@
   --button-text: #ffffff;
 }
 
+/* Layout for sidebar/main split */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+.main-content {
+  margin-left: 220px;
+  flex: 1;
+  background: var(--bg-primary);
+  transition: margin-left 0.16s;
+  min-height: 100vh;
+}
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 0;
+  }
+}
 .App {
   text-align: center;
   background-color: var(--bg-primary);
